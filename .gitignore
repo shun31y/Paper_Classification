@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 .Trash-0/
-data/
+work/data/
