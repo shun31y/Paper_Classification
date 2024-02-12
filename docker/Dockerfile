@@ -8,6 +8,7 @@ RUN pip install scikit-learn
 RUN pip install torch 
 RUN pip install numpy
 RUN pip install importnb
+RUN pip install feedparser
 RUN pip install flake8
 RUN pip install black
 RUN pip install isort
