@@ -15,12 +15,12 @@ class Retrieve_Arxiv:
         df = self.preprocess(documents)
         self.save_df_to_csv(df)
 
-    def send_requests(self, keyword: str, max_num: int) -> list[dict]:
+    def send_requests(self, keyword: str, max_num: int) -> list:
         request_message = self.__get_requests_message(keyword, max_num)
         d = feedparser.parse(request_message)
         return d["entries"]
 
-    def preprocess(self, documents: list[dict]) -> pd.DataFrame:
+    def preprocess(self, documents: list) -> pd.DataFrame:
         properties = [
             [doc.title, doc.link, doc.published, doc.summary, doc.category]
             for doc in documents
@@ -31,7 +31,7 @@ class Retrieve_Arxiv:
         return df
 
     def save_df_to_csv(self, df: pd.DataFrame) -> None:
-        filename = "../data/" + self.Saved_file_path
+        filename = "./data/" + self.Saved_file_path
         df.to_csv(filename, encoding="utf-8")
         return None
 
