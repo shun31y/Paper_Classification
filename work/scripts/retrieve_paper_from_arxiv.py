@@ -31,7 +31,7 @@ class Retrieve_Arxiv:
         return df
 
     def save_df_to_csv(self, df: pd.DataFrame) -> None:
-        filename = "./data/" + self.Saved_file_path
+        filename = "/work/data/" + self.Saved_file_path
         df.to_csv(filename, encoding="utf-8")
         return None
 
