@@ -6,7 +6,7 @@ import pandas as pd
 
 class Retrieve_Arxiv:
     def __init__(self, Saved_file_path: str) -> None:
-        """_summary_
+        """コンストラクタ
 
         Args:
             Saved_file_path (str): 保存するCSVファイルの名前
@@ -15,7 +15,7 @@ class Retrieve_Arxiv:
         self.Saved_file_path = Saved_file_path
 
     def retrieve(self, keyword: str, max_num: int) -> None:
-        """_summary_
+        """論文をarxivから検索、CSVにして保存まで一括で行う関数
 
         Args:
             keyword (str): 検索したい論文に関連する単語
@@ -26,7 +26,7 @@ class Retrieve_Arxiv:
         self.save_df_to_csv(df)
 
     def send_requests(self, keyword: str, max_num: int) -> list:
-        """_summary_
+        """arxivにリクエストを送る関数
 
         Args:
             keyword (str): 検索したい論文に関連する単語
@@ -40,7 +40,7 @@ class Retrieve_Arxiv:
         return d["entries"]
 
     def preprocess(self, documents: list) -> pd.DataFrame:
-        """_summary_
+        """取得したドキュメントデータから必要なデータを抜き出してdfにまとめる関数
 
         Args:
             documents (list): 取得した論文についての情報(辞書型)を格納したリスト
@@ -58,7 +58,7 @@ class Retrieve_Arxiv:
         return df
 
     def save_df_to_csv(self, df: pd.DataFrame) -> None:
-        """_summary_
+        """dfをCSVに保存する関数
 
         Args:
             df (pd.DataFrame): 取得した論文について必要な情報を抜き出したデータフレーム
@@ -67,7 +67,7 @@ class Retrieve_Arxiv:
         df.to_csv(filename, encoding="utf-8")
 
     def __get_requests_message(self, keyword: str, max_num: int) -> str:
-        """_summary_
+        """リクエストメッセージをコマンドライン引数から作成する関数
 
         Args:
             keyword (str): 検索したい論文に関連する単語
