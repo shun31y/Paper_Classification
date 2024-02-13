@@ -5,7 +5,7 @@
 
 1. リポジトリをclone
    ```bash
-   git clone https://github.com/shun31y/ReformerImp.git
+   https://github.com/shun31y/Paper_Classification.git
    ```
 2. dockerイメージを作成する。dockerディレクトリに移動して以下を行う
    ```bash
