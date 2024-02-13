@@ -13,7 +13,12 @@
    docker compose up -d
    ```
 3. localホスト(localhost:8000/lab/tree/work/notebook/retrieve_and_classification.ipynb)にアクセスする.
-4. 全てのセルを実行する。
+4. .env.exampleにOpenAI_APIKEYを入力後
+  ```bash
+   cp .env.example .env
+   ```
+   を実行して.envファイルを作成する
+6. 全てのセルを実行する。
 ---
 ## 実行例
 <img width="409" alt="スクリーンショット 2024-02-13 23 12 39" src="https://github.com/shun31y/Paper_Classification/assets/145087663/5504fe5a-610c-43cf-a388-e1187f1a598c"><br>
