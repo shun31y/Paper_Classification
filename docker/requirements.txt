@@ -1,0 +1,10 @@
+jupyterlab
+pandas
+numpy
+feedparser
+flake8
+black
+isort
+openai==1.12.0
+bertopic
+python-dotenv
