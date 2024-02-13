@@ -1,6 +1,6 @@
 # Paper_Classification
 ---
-論文探索、トピック分類ツールの開発
+## 論文検索・トピック分類を行うライブラリ
 ## Quick Start
 
 1. リポジトリをclone
@@ -12,5 +12,5 @@
    docker build -t impimage .
    docker compose up -d
    ```
-3. localホスト(localhost:8888/lab/tree/work)にアクセスして作業を行う。
-4. 適宜必要なライブラリがあればインストールする。
+3. localホスト(localhost:8000/lab/tree/work/notebook/retrieve_and_classification.ipynb)にアクセスする.
+4. 全てのセルを実行する。
