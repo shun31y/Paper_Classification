@@ -66,6 +66,8 @@ class Classification_Topic:
         self.df_info = xmeans_instance.get_clusters()
 
     def make_and_save_topic_csv(self, keyword):
+        #URL用に変換したキーワードをもとに戻す
+        keyword = keyword.replace("%20", " ")
         # トピック分類後はトピックのインデックスが振られているためトピック名に変更する
         self.docs_df["Topic"] = [
             self.df_info[self.df_info["Topic"] == num]["Name"].values[0]
