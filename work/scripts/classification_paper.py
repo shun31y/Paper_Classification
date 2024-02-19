@@ -8,6 +8,8 @@ from bertopic import BERTopic
 from bertopic.backend import OpenAIBackend
 from bertopic.representation import OpenAI
 from sklearn.cluster import KMeans
+from pyclustering.cluster.center_initializer import xmeans
+from pyclustering.cluster.center_initializer import kmeans_plusplus_initializer
 
 sys.path.append("../utils")
 from openai_embeddings import OpenAICustomBackend
@@ -22,10 +24,9 @@ class Classification_Topic:
         self.saved_file_name = saved_file_name
         self.docs_df = pd.DataFrame()
         self.topics = []
-        self.probs = []
         self.df_info = pd.DataFrame()
 
-    def classification_papers_csv(self, num_topics: int):
+    def classification_papers_csv(self, upper_num_topics: int):
         # 　ドキュメントのデータフレームからアブストラクトのみを抽出
         self.docs_df = pd.read_csv("/work/data/" + self.saved_file_name)
         doc_list = list(self.docs_df["Abstruct"])
@@ -45,24 +46,30 @@ class Classification_Topic:
             client, model="gpt-3.5-turbo", chat=True, prompt=prompt
         )
         # 分類モデルの定義
-        cluster_model = KMeans(n_clusters=num_topics)
         topic_model = BERTopic(
-            language="english",
-            calculate_probabilities=True,
+            verbose = True,
+            lanugage = "english",
+            calculate_probabilities = False,
             nr_topics="auto",
-            embedding_model=embedding_model,
-            representation_model=representation_model,
-            hdbscan_model=cluster_model,
+            embedding_model = embedding_model
         )
-        # 分類モデルでのトピック分類
-        self.topics, self.probs = topic_model.fit_transform(doc_list)
-        self.df_info = topic_model.get_topic_info()
+        
+        # 文書の埋め込みベクトルを準備する
+        doc_embeddings = topic_model._extract_embeddings(doc_list)
+
+        #X-meansクラスタリングのインスタンスを初期化・作成・実行
+        initial_centers = kmeans_plusplus_initializer(doc_embeddings, upper_num_topics).initialize()
+        xmeans_instance = xmeans(doc_embeddings, initial_centers, ccore=True, kmax=upper_num_topics)
+        xmeans_instance.process()
+
+        # クラスタを取得
+        self.df_info = xmeans_instance.get_clusters()
 
     def make_and_save_topic_csv(self, keyword):
         # トピック分類後はトピックのインデックスが振られているためトピック名に変更する
         self.docs_df["Topic"] = [
             self.df_info[self.df_info["Topic"] == num]["Name"].values[0]
-            for num in self.topics
+            for num in self.df_info
         ]
         # 保存するディレクトリの作成
         dir = "/work/data/{}".format(keyword)

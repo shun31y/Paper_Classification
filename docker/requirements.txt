@@ -8,3 +8,7 @@ isort
 openai==1.12.0
 bertopic
 python-dotenv
+pyclustering
+PIL
+scipy
+matplotlib
