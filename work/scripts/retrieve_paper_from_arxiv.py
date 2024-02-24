@@ -5,17 +5,10 @@ import pandas as pd
 
 
 class Retrieve_Arxiv:
-    def __init__(self, saved_file_name: str="retrieved_paper.csv") -> None:
-        """コンストラクタ
-
-        Args:
-            saved_file_name (str): 保存するCSVファイルの名前
-        """
-        assert saved_file_name.endswith(".csv"), "ファイル名が.csvで終わっていません。"
-        self.saved_file_name = saved_file_name
+    def __init__(self):
 
     def retrieve(self, keyword: str, max_num: int) -> None:
-        """論文をarxivから検索、CSVにして保存まで一括で行う関数
+        """論文をarxivから検索、dfにするまで一括で行う関数
 
         Args:
             keyword (str): 検索したい論文に関連する単語
@@ -56,15 +49,6 @@ class Retrieve_Arxiv:
             properties, columns=["Title", "URL", "Date", "Abstruct", "Category"]
         )
         return df
-
-    def save_df_to_csv(self, df: pd.DataFrame) -> None:
-        """dfをCSVに保存する関数
-
-        Args:
-            df (pd.DataFrame): 取得した論文について必要な情報を抜き出したデータフレーム
-        """
-        filename = "/work/data/" + self.saved_file_name
-        df.to_csv(filename, encoding="utf-8")
 
     def __get_requests_message(self, keyword: str, max_num: int) -> str:
         """リクエストメッセージをコマンドライン引数から作成する内部関数
